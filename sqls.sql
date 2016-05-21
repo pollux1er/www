@@ -1,0 +1,2 @@
+INSERT INTO `info_user`(`PIN`, `nom`, `prenom`, `id_user`, `status`) SELECT distinct (`ext`), `last_name`, `first_name`,`id`, `company` FROM `userscm` WHERE `ext` <> '' AND `company` = 'Perenco Rio del Rey' AND ext LIKE '10%' OR ext LIKE '11%' GROUP BY ext 
+INSERT INTO `account_info`(`id_user`, `dessert`, `entree`, `repas`) SELECT `PIN`, '5', '5', '20' FROM `info_user` 
