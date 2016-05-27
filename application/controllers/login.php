@@ -27,10 +27,15 @@ class Login extends CI_Controller {
 	
 	public function index()
 	{
-		$contracted = $this->user->getAllContracted();
-		$perenco = $this->user->getAllPerenco();
-		$data['contracted'] = $contracted;
-		$data['perenco'] = $perenco;
+		// Ceux n'ayant qu'accès au plat de resistances
+		$nodash = $this->user->getAllNoDashboard();
+		
+		// Ceux qui auront acces au tableau de bord de choix
+		$dash = $this->user->getAllDashboard();
+		
+		// 
+		$data['nodash'] = $nodash;
+		$data['dash'] = $dash;
 		$this->load->view('login', $data);
 	}
 }

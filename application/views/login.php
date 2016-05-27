@@ -34,38 +34,42 @@ $( "#password" ).keyup(function() {
 	//alert( "Handler for .keyup() called." );
 	var myLength = $("#password").val().length;
 	var pin = $("#password").val();
-	var contracted = <?php echo json_encode($contracted); ?>;
-	var perenco = <?php echo json_encode($perenco); ?>;
+	var nodash = <?php echo json_encode($nodash); ?>;
+	var dash = <?php echo json_encode($dash); ?>;
 	// Verifier que ce n'est pas un alphanumerique
 	
-	
-	if(myLength === 4) {
-		$('#password').val('');
-		if(jQuery.inArray( pin, contracted ) === 0) {
+	//alert(pin.length);
+	if(pin.length === 4) {
+		// alert(jQuery.inArray( pin, nodash ));
+		// Pour ceux qui ont droit au dashboard
+		if(jQuery.inArray( pin, nodash ) >= 0) {
 			$('#mtsg').html('Impression du ticket en cours...');
 			$('#mtsg').addClass('success');
 			setTimeout(function(){
 				$('#mtsg').removeClass('success');
 				$('#mtsg').html('Staff Canteen Software');
-				$.post( "test.php", { name: "John", time: "2pm" } );				
+				$.post( "print_ticket.php", { pin: pin, dash : "no", entree : "0", dessert : "0" } );	
+				$('#password').val('');			
 			}, 2000);
 			return false;
 		}
-		if(jQuery.inArray( pin, contracted ) === -1 && jQuery.inArray( pin, perenco ) === -1) {
+		if(jQuery.inArray( pin, dash ) >= 0) {
+			$(location).attr('href', 'http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/order/?pin='+pin)
+			return false;
+		}
+		if(jQuery.inArray( pin, nodash ) === -1 && jQuery.inArray( pin, dash ) === -1) {
 			//alert('Compte inexistant! Veuillez contactez un administrateur.');
 			$('#mtsg').addClass('error');
 			$('#mtsg').html('Compte inexistant! <br>Veuillez contactez un administrateur.');
 			setTimeout(function(){
 				$('#mtsg').removeClass('error');
 				$('#mtsg').html('Staff Canteen Software');	
+				$('#password').val('');
 			}, 2000);
 			return false;
 		}
 		
-		if(jQuery.inArray( pin, perenco ) === 0) {
-			$(location).attr('href', 'http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/order/')
-			return false;
-		}
+		
 			
 		
 	}

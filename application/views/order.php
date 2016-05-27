@@ -10,8 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <title></title>
     <link rel="stylesheet" href="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/css/style.css">
 	<link href='http://fonts.googleapis.com/css?family=Inconsolata|Lato:300,400,700,400italic' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/css/font-awesome.min.css">
 	<script type="text/javascript" charset="utf-8">
 
 	</script>
@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <body class="bois">
  <div id="container">
 	<div id="content">
-		<div id="solde">Solde | <span id="entree">01</span>Entrée(s) <span id="repas">11</span>Repas <span id="dessert">03</span>Dessert</div>
+		<div id="solde">Solde | <span id="entree"><?php echo $user_balance->starter; ?></span>Entrée(s) <span id="repas"><?php echo $user_balance->meal; ?></span>Repas <span id="dessert"><?php echo $user_balance->dessert; ?></span>Dessert</div>
 		<div id="form">
 			
 				<div style="background-color: rgba(247, 251, 255, 0.5); color:#222; padding:10px; margin-top: 5%;margin-bottom: 5%;">
@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<tr>
 							<td width="75%">
 								
-								<input type="checkbox" name="checkboxG4" id="checkboxG4" class="css-checkbox" />
+								<input type="checkbox" name="checkboxG4" id="checkboxG4" class="css-checkbox" <?php if((int) $user_balance->starter == 0) echo "disabled"; ?> />
 								<label for="checkboxG4" class="css-label">Entree</label>
 								
 							</td>
@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<span class="glyphicon glyphicon-minus"></span>
 										</button>
 									</span>
-									<input type="text" name="entree" class="form-control input-number" style="width:42px" value="0" min="0" max="10">
+									<input type="text" name="entree" id="entreei" class="form-control input-number" style="width:42px" value="<?php if((int) $user_balance->starter > 0) echo "1"; else echo "0"; ?>" min="0" max="5">
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="entree">
 											<span class="glyphicon glyphicon-plus"></span>
@@ -55,19 +55,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
-								<input type="checkbox" name="checkboxG5" id="checkboxG5" class="css-checkbox" checked="checked"/>
+								<input type="checkbox" name="checkboxG5" id="checkboxG5" class="css-checkbox" checked="checked" disabled/>
 								<label for="checkboxG5" class="css-label">Plat de Resistance</label>
 							</td>
 							<td>
 								<div class="input-group">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="repas">
+										<button type="button" class="btn btn-default btn-number"  data-type="minus" data-field="repas">
 											<span class="glyphicon glyphicon-minus"></span>
 										</button>
 									</span>
-									<input type="text" name="repas" class="form-control input-number" style="width:42px" value="1" min="1" max="5">
+									<input type="text" name="repas" class="form-control input-number" style="width:42px" value="1" min="1" max="1">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="repas">
+										<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="repas">
 											<span class="glyphicon glyphicon-plus"></span>
 										</button>
 									</span>
@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
-								<input type="checkbox" name="checkboxG6" id="checkboxG6" class="css-checkbox" />
+								<input type="checkbox" name="checkboxG6" id="checkboxG6" class="css-checkbox" <?php if((int) $user_balance->dessert == 0) echo "disabled"; ?> />
 								<label for="checkboxG6" class="css-label"> Dessert</label>
 							</td>
 							<td>
@@ -87,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<span class="glyphicon glyphicon-minus"></span>
 										</button>
 									</span>
-									<input type="text" name="dessert" class="form-control input-number" style="width:42px" value="0" min="0" max="5">
+									<input type="text" name="dessert" id="desserte" class="form-control input-number" style="width:42px" value="<?php if((int) $user_balance->dessert > 0) echo "1"; else echo "0"; ?>" min="0" max="5">
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="dessert">
 											<span class="glyphicon glyphicon-plus"></span>
@@ -100,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</table>
 				</div>
 				<div id="buttons">
-					<button class="btn-class annuler">Annuler</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-class">Imprimer Ticket</button>
+					<button class="btn-class annuler">Annuler</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-class print">Imprimer Ticket</button>
 				</div>
 			
 		</div>
@@ -115,47 +115,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </body>
 </html>
 <script>
-$( "#password" ).keyup(function() {
-	//alert( "Handler for .keyup() called." );
-	var myLength = $("#password").val().length;
-	var pin = $("#password").val();
-	var contracted = <?php echo json_encode($contracted); ?>;
-	var perenco = <?php echo json_encode($perenco); ?>;
-	// Verifier que ce n'est pas un alphanumerique
-	
-	
-	if(myLength === 4) {
-		$('#password').val('');
-		if(jQuery.inArray( pin, contracted ) === 0) {
-			$('#mtsg').html('Impression du ticket en cours...');
-			$('#mtsg').addClass('success');
-			setTimeout(function(){
-				$('#mtsg').removeClass('success');
-				$('#mtsg').html('Staff Canteen Software');
-				$.post( "test.php", { name: "John", time: "2pm" } );				
-			}, 2000);
-			return false;
-		}
-		if(jQuery.inArray( pin, contracted ) === -1 && jQuery.inArray( pin, perenco ) === -1) {
-			//alert('Compte inexistant! Veuillez contactez un administrateur.');
-			$('#mtsg').addClass('error');
-			$('#mtsg').html('Compte inexistant! <br>Veuillez contactez un administrateur.');
-			setTimeout(function(){
-				$('#mtsg').removeClass('error');
-				$('#mtsg').html('Staff Canteen Software');	
-			}, 2000);
-			return false;
-		}
-		
-		if(jQuery.inArray( pin, perenco ) === 0) {
-			$(location).attr('href', 'http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/order')
-			return false;
-		}
-			
-		
-	}
-});
-
 	$(document).ready(function(){
     // This button will increment the value
     $('.qtyplus').click(function(e){
@@ -264,7 +223,25 @@ $(".input-number").keydown(function (e) {
             e.preventDefault();
         }
     });
-
+$('.print').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+		
+        entree = $('#entreei').val();
+        dessert = $('#desserte').val();
+		//alert(entree);
+		if(!$('#checkboxG4').is(":checked")) entree = 0;
+		//alert(entree);
+		if(!$('#checkboxG6').is(":checked")) dessert = 0;
+		$.post( "../print_ticket.php", { pin: "<?php echo $user_balance->PIN; ?>", dash : "yes", entree : entree, dessert : dessert } );
+		
+		setTimeout(function(){
+				history.go(-1); 		
+			}, 2000);
+        // Get its current value
+       
+    });
 $('.annuler').click(function() {
 	history.go(-1); 
    return false;
