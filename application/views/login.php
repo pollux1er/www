@@ -26,10 +26,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<ul class="bg-bubbles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 </div>
     <script src='http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/js/jquery.min.js'></script>
-        <script src="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/js/index.js"></script>    
+        <script src="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/js/index.js"></script>   
+	<!-- keyboard widget css & script (required) -->
+	<link href="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/css/keyboard.css" rel="stylesheet">
+	<script src="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/js/jquery.keyboard.js"></script>
   </body>
 </html>
 <script>
+$('#password').keyboard({
+		layout: 'custom',
+		customLayout: {
+			'default' : [
+				'C D E F',
+				'8 9 A B',
+				'4 5 6 7',
+				'0 1 2 3',
+				'{bksp} {a} {c}'
+			]
+		},
+		accepted : function(event, keyboard, el){
+			alert('The content "' + el.value + '" was accepted!');
+		},
+		usePreview : false,
+		autoAccept: true,
+		maxLength : 4,
+		// Prevent keys not in the displayed keyboard from being typed in
+		restrictInput : true,
+		// include lower case characters (added v1.25.7)
+		restrictInclude : 'a b c d e f',
+		// don't use combos or A+E could become a ligature
+		useCombos : false,
+		// activate the "validate" callback function
+		acceptValid : true,
+		validate : function(keyboard, value, isClosing){
+			// only make valid if input is 6 characters in length
+			if(value.length === 4)
+				return true;
+			
+			return false;
+		}
+	});
+	
 $( "#password" ).keyup(function() {
 	//alert( "Handler for .keyup() called." );
 	var myLength = $("#password").val().length;
@@ -68,10 +105,7 @@ $( "#password" ).keyup(function() {
 			}, 2000);
 			return false;
 		}
-		
-		
-			
-		
 	}
 });
+
 </script>
