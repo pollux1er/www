@@ -1,26 +1,21 @@
-/*! jQuery UI Virtual Keyboard v1.25.28 *//*
+/*! jQuery UI Virtual Keyboard v1.25.29 *//*
 Author: Jeremy Satterfield
 Maintained: Rob Garrison (Mottie on github)
 Licensed under the MIT License
-
 An on-screen virtual keyboard embedded within the browser window which
 will popup when a specified entry field is focused. The user can then
 type and preview their input before Accepting or Canceling.
-
 This plugin adds default class names to match jQuery UI theme styling.
 Bootstrap & custom themes may also be applied - See
 https://github.com/Mottie/Keyboard#themes
-
 Requires:
 	jQuery v1.4.3+
 	Caret plugin (included)
 Optional:
 	jQuery UI (position utility only) & CSS theme
 	jQuery mousewheel
-
 Setup/Usage:
 	Please refer to https://github.com/Mottie/Keyboard/wiki
-
 -----------------------------------------
 Caret code modified from jquery.caret.1.02.js
 Licensed under the MIT License:
@@ -42,7 +37,7 @@ http://www.opensource.org/licenses/mit-license.php
 	var $keyboard = $.keyboard = function (el, options) {
 	var o, base = this;
 
-	base.version = '1.25.28';
+	base.version = '1.25.29';
 
 	// Access to jQuery and DOM versions of element
 	base.$el = $(el);
@@ -388,7 +383,7 @@ http://www.opensource.org/licenses/mit-license.php
 			if (base.last.end === 0 && base.last.start > 0) {
 				base.last.end = base.last.start;
 			}
-			// IE will have start -1, end of 0 when not focused (see demo: http://jsfiddle.net/Mottie/fgryQ/3/)
+			// IE will have start -1, end of 0 when not focused (see demo: https://jsfiddle.net/Mottie/fgryQ/3/)
 			if (base.last.start < 0) {
 				// ensure caret is at the end of the text (needed for IE)
 				base.last.start = base.last.end = base.originalContent.length;
@@ -704,7 +699,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 			})
 			.bind('keypress' + base.namespace, function (e) {
-				if (o.lockInput) {
+				if (o.lockInput || !base.isCurrent()) {
 					return false;
 				}
 				var k = e.charCode || e.which,
@@ -768,6 +763,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 			})
 			.bind('keyup' + base.namespace, function (e) {
+				if (!base.isCurrent()) { return; }
 				base.last.virtual = false;
 				switch (e.which) {
 					// Insert tab key
@@ -821,6 +817,12 @@ http://www.opensource.org/licenses/mit-license.php
 					e.type = $keyboard.events.inputChange;
 					o.change(e, base, base.el);
 					return false;
+				}
+				if (o.acceptValid && o.autoAcceptOnValid) {
+					if ($.isFunction(o.validate) && o.validate(base, base.$preview.val())) {
+						base.$preview.blur();
+						base.accept();
+					}
 				}
 			})
 			.bind('keydown' + base.namespace, function (e) {
@@ -1051,7 +1053,7 @@ http://www.opensource.org/licenses/mit-license.php
 				} else if (/(mouseleave|touchend|touchcancel)/i.test(e.type)) {
 					$this.removeClass(o.css.buttonHover); // needed for touch devices
 				} else {
-					if (!o.noFocus && base.isVisible() && base.isCurrent()) {
+					if (!o.noFocus && base.isCurrent() && base.isVisible()) {
 						base.$preview.focus();
 					}
 					if (base.checkCaret) {
@@ -1158,6 +1160,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 	// check max length
 	base.checkMaxLength = function () {
+		if (!base.isCurrent()) { return; }
 		var start, caret,
 			val = base.$preview.val();
 		if (o.maxLength !== false && val.length > o.maxLength) {
@@ -2621,6 +2624,8 @@ http://www.opensource.org/licenses/mit-license.php
 		// 'ui-keyboard-valid-input'. If invalid, the accept button gets a class name of
 		// 'ui-keyboard-invalid-input'
 		acceptValid: false,
+		// Auto-accept when input is valid; requires `acceptValid` set `true` & validate callback
+		autoAcceptOnValid: false,
 
 		// if acceptValid is true & the validate function returns a false, this option will cancel
 		// a keyboard close only after the accept button is pressed
@@ -2710,7 +2715,6 @@ http://www.opensource.org/licenses/mit-license.php
 			switchInput   : function(keyboard, goToNext, isAccepted) {},
 			// used if you want to create a custom layout or modify the built-in keyboard
 			create        : function(keyboard) { return keyboard.buildKeyboard(); },
-
 			// build key callback
 			buildKey : function( keyboard, data ) {
 				/ *
