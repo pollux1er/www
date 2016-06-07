@@ -1,13 +1,14 @@
+********  June 4, 2016, 12:23 pm  ********
 ------------------------------------------
-Perenco Staff Canteen
+Perenco Staff Canteen (3406)
 ------------------------------------------
 
-Entree : 1 
-Plat de resistance : 1 
-Dessert : 1
+Entree(s) : 1 
+Plat(s) de resistance : 1 
+Dessert(s) : 1
 
 Bon Appetit!
 
 ------------------------------------------
-Solde : 4 Entree, 19 plats, 4 dessert
+Solde : 4 Entrees, 19 plats, 4 desserts
 ------------------------------------------

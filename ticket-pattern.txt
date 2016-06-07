@@ -1,13 +1,14 @@
+********  {date}  ********
 ------------------------------------------
-Perenco Staff Canteen
+Perenco Staff Canteen ({ID})
 ------------------------------------------
 
-Entree : {e} 
-Plat de resistance : {p} 
-Dessert : {d}
+Entree(s) : {e} 
+Plat(s) de resistance : {p} 
+Dessert(s) : {d}
 
 Bon Appetit!
 
 ------------------------------------------
-Solde : {se} Entree, {sp} plats, {sd} dessert
+Solde : {se} Entrees, {sp} plats, {sd} desserts
 ------------------------------------------

@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</button>
 									</span>
 									<input type="text" name="entree" id="entreei" class="form-control input-number" style="width:42px" value="<?php if((int) $user_balance->starter > 0) echo "1"; else echo "0"; ?>" min="0" max="5">
-									<span class="input-group-btn">
+									<span class="input-group-btn" style="float:left">
 										<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="entree">
 											<span class="glyphicon glyphicon-plus"></span>
 										</button>
@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</button>
 									</span>
 									<input type="text" name="repas" class="form-control input-number" style="width:42px" value="1" min="1" max="1">
-									<span class="input-group-btn">
+									<span class="input-group-btn" style="float:left">
 										<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="repas">
 											<span class="glyphicon glyphicon-plus"></span>
 										</button>
@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</button>
 									</span>
 									<input type="text" name="dessert" id="desserte" class="form-control input-number" style="width:42px" value="<?php if((int) $user_balance->dessert > 0) echo "1"; else echo "0"; ?>" min="0" max="5">
-									<span class="input-group-btn">
+									<span class="input-group-btn" style="float:left">
 										<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="dessert">
 											<span class="glyphicon glyphicon-plus"></span>
 										</button>

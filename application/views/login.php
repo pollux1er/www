@@ -45,7 +45,8 @@ $('#password').keyboard({
 			]
 		},
 		accepted : function(event, keyboard, el){
-			alert('The content "' + el.value + '" was accepted!');
+			//alert('The content "' + el.value + '" was accepted!');
+			validate();
 		},
 		usePreview : false,
 		autoAccept: true,
@@ -67,8 +68,9 @@ $('#password').keyboard({
 		}
 	});
 	
-$( "#password" ).keyup(function() {
+//$( "#password" ).keyup(function() {
 	//alert( "Handler for .keyup() called." );
+function validate(){	
 	var myLength = $("#password").val().length;
 	var pin = $("#password").val();
 	var nodash = <?php echo json_encode($nodash); ?>;
@@ -106,6 +108,6 @@ $( "#password" ).keyup(function() {
 			return false;
 		}
 	}
-});
+}
 
 </script>

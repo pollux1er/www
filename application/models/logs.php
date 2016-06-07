@@ -1,10 +1,9 @@
 <?php
-Class User extends CI_Model
+Class Log extends CI_Model
 {
 	public function __construct()
 	{
-		parent::__construct();
-		$this->load->model('log_model', 'logs');
+		$this->load->model('log');
 	}
 	
 	public function login($username, $password)
