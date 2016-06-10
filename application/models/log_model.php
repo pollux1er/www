@@ -44,6 +44,41 @@ class Log_model extends CI_Model {
 		return false;
 	}
 	
+	public function getUpdates()
+	{
+		$query = $this->db->query("SELECT `starter`, `meal`, `dessert`, `date`, `log_by`, `update_status` FROM `logs` WHERE update_status = '0'");
+		
+		if (!empty($query->result()))
+		{
+			return $query->result();
+		}
+	}
+	
+	public function getLastUpdate()
+	{
+		$query = $this->db->query("SELECT id, `starter`, `meal`, `dessert`, `date`, `log_by` FROM `logs` WHERE update_status = '0' ORDER BY id ASC LIMIT 1");
+		$row = $query->result();
+		if (isset($row))
+		{
+			return $row;
+		}
+		return false;
+	}
+	
+	public function updated_user_log($id)
+	{
+		return $this->db->query("UPDATE logs SET `update_status` = '1' WHERE id = '".$id."'");
+	}
+	
+	public function updateBalanceFromServer($balance)
+	{
+		//var_dump($balance); die;
+		unset ($balance['id']);
+		$this->db->where('id_user', $balance['id_user']);
+		return $this->db->update('user_balance', $balance);
+			
+	}
+	
 }
 
 ?>

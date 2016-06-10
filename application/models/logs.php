@@ -119,5 +119,13 @@ Class Log extends CI_Model
 		return $query->row();
 		
 	}
+	
+	public function updateBalanceFromServer($balance)
+	{
+		unset ($balance['id']);
+		$this->db->where('id_user', $balance['id_user']);
+		return $this->db->update('user_balance', $balance);
+			
+	}
 }
 ?>

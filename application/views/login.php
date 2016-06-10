@@ -1,8 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-// echo "<pre>";
-// var_dump($perenco);
-// die;
 ?><!DOCTYPE html>
 <html >
   <head>
@@ -109,5 +106,58 @@ function validate(){
 		}
 	}
 }
+
+setInterval(function() {
+	var dt = new Date();
+	var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+	console.time("debut ajax");
+	$.getJSON('http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/order/get_orders', function(data) {
+		console.log(data); 
+		//alert(jQuery.type(data));
+		//alert(data);
+		var id = data[0].id;
+		var starter = data[0].starter;
+		var meal = data[0].meal;
+		var dessert = data[0].dessert;
+		var iduser = data[0].log_by;
+		var date = data[0].date;
+		// var order = jQuery.parseJSON(data);
+		// var starter = order.starter;
+		// var meal = order.meal;
+		// var dessert = order.dessert;
+		// var iduser = order.log_by;
+		// var date = order.date;
+		//alert(id);
+		if(jQuery.type(data) === "array") {
+			var server="http://127.0.0.1:80/PerencoCanteenAdmin/index.php/account/updateExternal?";
+			$.ajax({
+				url: server+"&callback=?",
+				data: "starter="+starter+"&meal="+meal+"&dessert="+dessert+"&date="+date+"&id_user="+iduser+"&place=client1",
+				type: 'POST',
+				success: function (resp) { 
+					var myObj = $.parseJSON(resp); 
+					
+					$.getJSON("http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/order/update_log?id="+id+"&starter="+myObj.starter+"&meal="+myObj.meal+"&dessert="+myObj.dessert+"&id_user="+myObj.id_user, function(data) {
+						//alert(data);
+					}); 
+				},
+				error: function(e) {
+					//alert('Error: '+e);
+				 }  
+			});
+		}
+        //$('#updates_contents').html(data);
+		
+    });
+	console.timeEnd("fin ajax");
+	
+	// alert(time);
+	// if(dt.getHours() == '8')
+		// alert('il est 8h');
+	// if(dt.getMinutes() == '23')
+		// alert('il est 8h23');
+	//console.log(dt.getHours());
+	//$.post( "print_ticket.php", { time : time } );
+}, 1000 * 60 * 1);
 
 </script>

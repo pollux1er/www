@@ -1,6 +1,6 @@
-********  June 4, 2016, 12:23 pm  ********
+********  June 10, 2016, 4:07 pm  ********
 ------------------------------------------
-Perenco Staff Canteen (3406)
+Perenco Staff Canteen (9730)
 ------------------------------------------
 
 Entree(s) : 1 
@@ -10,5 +10,5 @@ Dessert(s) : 1
 Bon Appetit!
 
 ------------------------------------------
-Solde : 4 Entrees, 19 plats, 4 desserts
+Solde : 3 Entrees, 2 plats, 5 desserts
 ------------------------------------------

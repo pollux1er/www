@@ -22,6 +22,7 @@ class Order extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('user'); 
+        $this->load->model('log_model', 'logs'); 
 		$this->load->helper('url');
         $this->load->database(); 
     }
@@ -31,5 +32,24 @@ class Order extends CI_Controller {
 		$user_infos = $this->user->getUserBalanceFromPIN($this->input->get('pin'));
 		$data['user_balance'] = $user_infos;
 		$this->load->view('order', $data);
+	}
+	
+	public function get_orders()
+	{
+		$updates = $this->logs->getUpdates();
+		if(count($updates) > 0) {
+			echo json_encode($this->logs->getLastUpdate());
+		}
+		else
+			echo 0;
+	}
+	
+	public function update_log()
+	{
+		if($this->logs->updated_user_log($this->input->get('id')))
+		{
+			if($this->logs->updateBalanceFromServer($this->input->get()))
+				echo "OK";
+		}
 	}
 }
