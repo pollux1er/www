@@ -72,7 +72,6 @@ class Log_model extends CI_Model {
 	
 	public function updateBalanceFromServer($balance)
 	{
-		//var_dump($balance); die;
 		unset ($balance['id']);
 		$this->db->where('id_user', $balance['id_user']);
 		return $this->db->update('user_balance', $balance);

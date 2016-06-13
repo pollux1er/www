@@ -28,3 +28,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 ticket-printed.txt
 *.db3
+ticket-printed.txt
+*.db3
