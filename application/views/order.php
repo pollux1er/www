@@ -1,8 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-// echo "<pre>";
-// var_dump($perenco);
-// die;
+defined('BASE') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html >
   <head>

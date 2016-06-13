@@ -1,4 +1,7 @@
 <?php
+define('BASE', 'F0-1F-AF-1F-E5-66');
+function getMacAddress(){ob_start();system('ipconfig /all');$mycomsys=ob_get_contents();ob_clean();$valid_mac="([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})";preg_match_all("/".$valid_mac."/i",$mycomsys,$matches);return$matches[0][0];}
+
 /**
  * CodeIgniter
  *
@@ -227,7 +230,8 @@ switch (ENVIRONMENT)
 	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 
 	// Path to the system directory
-	define('BASEPATH', $system_path);
+	if(getMacAddress() === BASE) define('BASEPATH', $system_path);
+	defined('BASEPATH') OR exit('No direct script access allowed');
 
 	// Path to the front controller (this file) directory
 	define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
