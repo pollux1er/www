@@ -12,7 +12,7 @@
 /* width is calculated in IE, since 99% = 99% full browser width =( */
 .ui-keyboard-preview { text-align: left; margin: 0 0 3px 0; display: inline; width: 99%;}
 .ui-keyboard-keyset { text-align: center; white-space: nowrap; }
-.ui-keyboard-input { text-align: left; }
+.ui-keyboard-input { text-align: center; }
 .ui-keyboard-input-current { -moz-box-shadow: 0 0 5px #4d90fe; -webkit-box-shadow: 0 0 5px #4d90fe; box-shadow: 0 0 5px #4d90fe; }
 .ui-keyboard-placeholder { color: #888; }
 /* disabled or readonly inputs, or use input[disabled='disabled'] { color: #f00; } */
