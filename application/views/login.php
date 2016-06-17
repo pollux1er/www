@@ -116,7 +116,7 @@ setInterval(function() {
 		var id = data[0].id; var starter = data[0].starter; var meal = data[0].meal; var dessert = data[0].dessert;
 		var iduser = data[0].log_by; var date = data[0].date;
 		if(jQuery.type(data) === "array") {
-			var server="http://127.0.0.1:80/PerencoCanteenAdmin/index.php/account/updateExternal?";
+			var server="<?php echo $this->config->item('server_url'); ?>index.php/account/updateExternal?";
 			$.ajax({
 				url: server+"&callback=?",
 				data: "starter="+starter+"&meal="+meal+"&dessert="+dessert+"&date="+date+"&id_user="+iduser+"&place=client1",

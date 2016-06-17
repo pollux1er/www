@@ -13,7 +13,7 @@ class Updates extends CI_Controller {
 	
 	public function getUpdates()
 	{
-		$url = "http://localhost/PerencoCanteenAdmin/index.php/account/newAccountsExternal";
+		$url = $this->config->item('server_url') . "index.php/account/newAccountsExternal";
 		 $ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		// Set so curl_exec returns the result instead of outputting it.
