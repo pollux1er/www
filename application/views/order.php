@@ -1,7 +1,7 @@
 <?php
 defined('BASE') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
-<html >
+<html  oncontextmenu="return false">
   <head>
     <meta charset="UTF-8">
     <title></title>
