@@ -1,5 +1,5 @@
 <?php
-defined('BASE') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html  oncontextmenu="return false">
   <head>
@@ -23,7 +23,7 @@ defined('BASE') OR exit('No direct script access allowed');
 		<div id="form">
 			
 				<div style="background-color: rgba(247, 251, 255, 0.5); color:#222; padding:10px; margin-top: 5%;margin-bottom: 5%;">
-					<h3>Faite votre choix</h3>
+					<h3>Faites votre choix</h3>
 					<table width="95%">
 						<tr><td>&nbsp;</td></tr>
 						<tr>
@@ -40,7 +40,7 @@ defined('BASE') OR exit('No direct script access allowed');
 											<span class="glyphicon glyphicon-minus"></span>
 										</button>
 									</span>
-									<input type="text" name="entree" id="entreei" class="form-control input-number" style="width:42px" value="<?php if((int) $user_balance->starter > 0) echo "1"; else echo "0"; ?>" min="0" max="5">
+									<input type="text" name="entree" id="entreei" class="form-control input-number" style="width:42px" value="<?php if((int) $user_balance->starter > 0) echo "1"; else echo "0"; ?>" min="0" max="<?php if((int) $user_balance->starter >= 5) echo "5"; else echo $user_balance->starter; ?>">
 									<span class="input-group-btn" style="float:left">
 										<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="entree">
 											<span class="glyphicon glyphicon-plus"></span>
@@ -52,8 +52,8 @@ defined('BASE') OR exit('No direct script access allowed');
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
-								<input type="checkbox" name="checkboxG5" id="checkboxG5" class="css-checkbox" checked="checked" disabled/>
-								<label for="checkboxG5" class="css-label">Plat de Resistance</label>
+								<input type="checkbox" name="checkboxG5" id="checkboxG5" class="css-checkbox" <?php if((int) $user_balance->meal > 0) { ?>checked="checked" <?php } ?>/>
+								<label for="checkboxG5" class="css-label">Plats chauds</label>
 							</td>
 							<td>
 								<div class="input-group">
@@ -62,7 +62,7 @@ defined('BASE') OR exit('No direct script access allowed');
 											<span class="glyphicon glyphicon-minus"></span>
 										</button>
 									</span>
-									<input type="text" name="repas" class="form-control input-number" style="width:42px" value="1" min="1" max="1">
+									<input type="text" name="repas" id="repase" class="form-control input-number" style="width:42px" value="<?php if((int) $user_balance->meal == 0) echo "0"; else echo "1"; ?>" min="0" max="1">
 									<span class="input-group-btn" style="float:left">
 										<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="repas">
 											<span class="glyphicon glyphicon-plus"></span>
@@ -84,7 +84,7 @@ defined('BASE') OR exit('No direct script access allowed');
 											<span class="glyphicon glyphicon-minus"></span>
 										</button>
 									</span>
-									<input type="text" name="dessert" id="desserte" class="form-control input-number" style="width:42px" value="<?php if((int) $user_balance->dessert > 0) echo "1"; else echo "0"; ?>" min="0" max="5">
+									<input type="text" name="dessert" id="desserte" class="form-control input-number" style="width:42px" value="<?php if((int) $user_balance->dessert > 0) echo "1"; else echo "0"; ?>" min="0" max="<?php if((int) $user_balance->dessert >= 5) echo "5"; else echo $user_balance->dessert; ?>">
 									<span class="input-group-btn" style="float:left">
 										<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="dessert">
 											<span class="glyphicon glyphicon-plus"></span>
@@ -227,11 +227,12 @@ $('.print').click(function(e){
 		
         entree = $('#entreei').val();
         dessert = $('#desserte').val();
+        repas = $('#repase').val();
 		//alert(entree);
 		if(!$('#checkboxG4').is(":checked")) entree = 0;
 		//alert(entree);
 		if(!$('#checkboxG6').is(":checked")) dessert = 0;
-		$.post( "../print_ticket.php", { pin: "<?php echo $user_balance->PIN; ?>", dash : "yes", entree : entree, dessert : dessert } );
+		$.post( "../print_ticket.php", { pin: "<?php echo $user_balance->PIN; ?>", dash : "yes", entree : entree, dessert : dessert, repas : repas } );
 		
 		setTimeout(function(){
 				history.go(-1); 		

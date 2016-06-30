@@ -1,5 +1,5 @@
 <?php
-defined('BASE') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html  oncontextmenu="return false">
   <head>
@@ -134,26 +134,38 @@ setInterval(function() {
 		}		
     });
 	console.timeEnd("fin ajax");
-}, 1000 * 60 * 1);
+}, 30000);
 
+// Check les nouveaux comptes créées
 setInterval(function() {
 	var dt = new Date();
 	var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 	//if(dt.getHours() == '11' && dt.getMinutes() == '35') {
-		var server="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/updates/getupdates?";
+		//var server="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/updates/getupdates?";
+		var server="http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/updates/UpdatesT?";
 		$.ajax({
 			url: server+"&callback=?",
 			data: "place=client1",
 			type: 'GET',
 			success: function (resp) { 
-				if(resp != "")
+				setTimeout(function(){
 					$(location).attr('href', 'http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/login');
+				}, 4000);
+					
 			},
 			error: function(e) {
 				//alert('Error: '+e);
 			}  
 		});
 	//}
-}, 1000 * 60 * 1);
+}, 40000);
+
+document.onmousedown=disableclick;
+status="Right Click Disabled";
+function disableclick(event) {
+	if(event.button == 2) {
+		return false;
+	}
+}
 
 </script>
