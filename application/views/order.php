@@ -1,7 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASE') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
-<html  oncontextmenu="return false">
+<html >
   <head>
     <meta charset="UTF-8">
     <title></title>
@@ -224,7 +224,9 @@ $('.print').click(function(e){
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
-		
+		if(!$('#checkboxG5').prop('checked') && !$('#checkboxG6').prop('checked') && !$('#checkboxG4').is(":checked"))
+			return false;
+
         entree = $('#entreei').val();
         dessert = $('#desserte').val();
         repas = $('#repase').val();
@@ -232,6 +234,7 @@ $('.print').click(function(e){
 		if(!$('#checkboxG4').is(":checked")) entree = 0;
 		//alert(entree);
 		if(!$('#checkboxG6').is(":checked")) dessert = 0;
+		if(!$('#checkboxG5').is(":checked")) repas = 0;
 		$.post( "../print_ticket.php", { pin: "<?php echo $user_balance->PIN; ?>", dash : "yes", entree : entree, dessert : dessert, repas : repas } );
 		
 		setTimeout(function(){

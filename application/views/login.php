@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html  oncontextmenu="return false">
+defined('BASE') OR exit('No direct script access allowed');
+?>
+<!DOCTYPE html>
+<html oncontextmenu="return false">
   <head>
     <meta charset="UTF-8">
     <title></title>
@@ -116,7 +117,7 @@ setInterval(function() {
 		var id = data[0].id; var starter = data[0].starter; var meal = data[0].meal; var dessert = data[0].dessert;
 		var iduser = data[0].log_by; var date = data[0].date;
 		if(jQuery.type(data) === "array") {
-			var server="<?php echo $this->config->item('server_url'); ?>index.php/account/updateExternal?";
+			var server= "<?php echo $this->config->item('server_url');  ?>index.php/account/updateExternal?";
 			$.ajax({
 				url: server+"&callback=?",
 				data: "starter="+starter+"&meal="+meal+"&dessert="+dessert+"&date="+date+"&id_user="+iduser+"&place=client1",
@@ -149,7 +150,7 @@ setInterval(function() {
 			type: 'GET',
 			success: function (resp) { 
 				setTimeout(function(){
-					$(location).attr('href', 'http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/login');
+					//$(location).attr('href', 'http://127.0.0.1:<?php echo $_SERVER['SERVER_PORT']; ?>/login');
 				}, 4000);
 					
 			},
@@ -158,7 +159,7 @@ setInterval(function() {
 			}  
 		});
 	//}
-}, 40000);
+}, 50000);
 
 document.onmousedown=disableclick;
 status="Right Click Disabled";

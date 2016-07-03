@@ -29,10 +29,10 @@ if($_POST['dash'] == 'no') { // S'il ne prend qu'un plat de résistance
 }
 
 if($_POST['dash'] == 'yes') { // S'il prend des choix
-	$log_repas = -1;
+	$log_repas = (int) $_POST['repas'] * (-1);
 	$log_entree = (int) $_POST['entree'] * (-1);
 	$log_dessert = (int) $_POST['dessert'] * (-1);
-	$new_repas = $old_repas - 1;
+	$new_repas = $old_repas - (int) $_POST['repas'];
 	$new_entree = $old_entree - (int) $_POST['entree'];
 	$new_dessert = $old_dessert - (int) $_POST['dessert'];
 	$stmt = PDO_Execute("UPDATE user_balance SET meal = '$new_repas', starter = '$new_entree', dessert = '$new_dessert' WHERE id_user = '$id_user'");
@@ -57,7 +57,7 @@ $patterns[6] = '/{date}/';
 $patterns[7] = '/{ID}/';
 $replacements = array();
 $replacements[0] = $_POST['entree'];
-$replacements[1] = "1";
+$replacements[1] = $_POST['repas'];
 $replacements[2] = $_POST['dessert'];
 $replacements[3] = "$new_entree";
 $replacements[4] = "$new_repas";
