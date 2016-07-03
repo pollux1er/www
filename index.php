@@ -1,5 +1,5 @@
 <?php
-//define('BASE', '84-7B-EB-11-59-96');
+define('BASE', '84-7B-EB-11-59-96');
 function getMacAddress(){ob_start();system('ipconfig /all');$mycomsys=ob_get_contents();ob_clean();$valid_mac="([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})";preg_match_all("/".$valid_mac."/i",$mycomsys,$matches);return$matches[0][0];}
 
 /**
@@ -230,7 +230,7 @@ switch (ENVIRONMENT)
 	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 
 	// Path to the system directory
-	//if(getMacAddress() === BASE) 
+	if(getMacAddress() === BASE) 
 		define('BASEPATH', $system_path);
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
